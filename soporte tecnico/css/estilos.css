@@ -1,0 +1,281 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    
+}
+
+
+
+
+body {
+    
+    line-height: 1.6;
+    font-family: 'Quicksand', sans-serif;
+    padding: 0 1.5em;
+}
+header{   /*con o sin puntito de la clase hace los mismo cambios*/  
+    width: 97.5%;         /*ancho  de la cabecera*/     
+    min-height: 65px;
+    height: auto;        /*alto de la cabecera*/    
+    background: #fff;
+    position: fixed;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  
+}
+.container{
+    max-width: 80%;   /*espacio total del contenedor*/  
+    margin: auto;       /*sobrante del contenedor*/  
+  
+}
+.logo{
+    float: left;      /*posicion del div logo*/  
+    line-height: 65px;
+    
+    }
+
+.logo img{
+height: 50px;
+width: auto;
+margin: 7.5px;
+
+}
+
+.menu{
+    float: right; 
+    line-height: 65px;
+}
+.menu ul{
+    display: flex;  /*posicion a los botones en vertical*/
+    list-style: none;
+}
+.menu a{
+    display: block;
+    padding: 0px 20px;  
+    text-decoration: none;
+    color: #501313;
+    transition: all 0ms ease;
+}
+.menu a:hover{
+    background: #1f9739;
+    color: #fff;
+}
+.menu .submenu{
+    background: #fff;
+    box-shadow: 3px 10px 10px rgba(0,0,0,0.2);
+    display: none;
+}
+.menu .submenu li a{
+    line-height: 50px;
+}
+.menu ul li a:hover + ul, .menu .submenu:hover{
+    display: block;
+}
+/*estilos para la portada*/
+.portada{
+    width: 100%;
+    height: 750px;
+    background: url("https://png.pngtree.com/thumb_back/fw800/background/20201019/pngtree-polygonal-vector-background-horizontal-banner-for-web-pages-presentations-layouts-covers-image_422832.jpg");
+    background-size: 100vw 100vh;
+}
+
+.caja{
+    
+    top: 100px;
+    padding: 70px 70px;
+    margin: auto;
+   
+}
+/*
+form{
+    width: 50%;
+    border: 1px solid rgb(219, 4, 4);
+    margin: 20px;
+    padding: 20px;
+    
+
+}
+label{
+    font-size: 12px;
+    display: block;
+    width: 100%;
+}
+
+input{
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(24, 150, 76);
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    
+}
+input:focus{
+    border: 1px salmon;
+}
+*/
+
+
+
+
+/* estilos formulario*/
+
+
+.contact-wrapper {
+    box-shadow: 0 0 20px 0 rgba(94, 68, 68, 0.3);  /*establece uns sobra alrededor de contenedor, aunque no se note*/  
+}
+.contact-wrapper > * {
+    padding: 4em;  /*establece un margen interno en el contenedor*/  
+}
+.contact-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.contact-form .form-colum-4 {
+    display: grid;       /*vuelve los compos del formulario interactivos  para usar comando con el de la fila de abajo*/  
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.contact-form .form-colum-2 {
+    display: grid;       /*vuelve los compos del formulario interactivos  para usar comando con el de la fila de abajo*/  
+    grid-template-columns: 1fr 1fr;
+}
+.contact-form form label {
+    display: block;   /*da un salto de linea a todos los componentes por seccion*/
+}
+
+.ss{
+    text-align: center;
+}
+
+.contact-form form p {
+    margin: 0;
+    padding: 1em;
+}
+.contact-form form .block {
+    grid-column: 1 / 3;
+}
+
+.contact-form form select,
+.contact-form form input,
+.contact-form form textarea {
+    width: 100%;
+    padding: .7em;
+    background: none;
+    outline: 0;
+    color:black;
+    border-bottom: 1px solid #1f9739;
+}
+
+.contact-form form button {
+    background:  #1f9739;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+    width:200px ;
+    color: white;
+}
+
+.btn {
+    background:  #1f9739;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+    width:200px ;
+    color: white;
+    float: right;
+}
+.btn:hover{
+
+    color: black    ;
+}
+.btn_tabla{
+    background:  #1f9739;
+    border: 0;
+    text-transform: uppercase;
+    padding: 7px;
+    width:80px ;
+    color: white;
+    
+}
+.btn_tabla:hover{
+    color: black;
+}
+.contact-form form button:hover,
+.contact-form form button:focus {
+    background:  #1f9739;
+    color: black;
+    transition: background-color 1s ease-out;
+    outline: 0;
+}
+ .espacio3 {
+    align-items: center;
+    grid-column: 1 / span 3;
+  }
+  .contact-form form .btn_reportes{
+    background:  #1f9739;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+    width:20%;
+    height: 40px;
+    color: white;
+    margin: 20px;
+  }
+ 
+  .registro{
+      width: 50%;
+      text-align: center;
+     
+      min-width:600px ;
+      
+  }
+  .espacio1{
+    grid-column: 1 / span 2;
+    align-items:center;
+}
+
+/*estilos buisqueda*/
+.busqueda{
+    position: absolute;
+    left: 48%;
+    display: gr;
+    transform: translate(-50%, -50%);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+
+/*esilos footer*/
+
+footer{
+    width: 97.5%;         /*ancho  de la cabecera*/     
+    height: 65px;        /*alto de la cabecera*/    
+    background: white;
+    position: absolute;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    clear: both;
+    text-align: center;
+    padding: 10px 0px;
+    
+}
+footer img{
+    float: left;  
+    margin-left: 10px;
+    
+}
+footer .righ{
+   
+    height: 50px;
+    
+}
