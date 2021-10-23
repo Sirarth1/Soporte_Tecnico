@@ -32,8 +32,8 @@
            <nav class="menu"><!-- inicio de menu de navegacion -->
                <ul>
                    <li><a href="index.html">Inicio</a></li>
-                   <li><a href="alta_equipos.html">Alta de equipos<i class="icon-abajo2"></i></a> </li>
-                   <li><a href="alta_reporte.html">Alta de Reportes</a></li>
+                   <li><a href="alta_equipos.php">Alta de equipos<i class="icon-abajo2"></i></a> </li>
+                   <li><a href="alta_reporte.php">Alta de Reportes</a></li>
                    <li><a href="estado_reporte.html">Estado de reportes</a></li>
                    <li><a href="accesos.html">Accesos</a></li>
                   
@@ -50,7 +50,7 @@
                 <h1>Alta de equipos</h1> <br>
                 <h3>Rellena los campos necesarios para registra un nuevo equipo</h2> 
                 <br>
-                <h2>Informacion Gneral</h2>
+                <h2>Informacion General</h2>
                 <form action="Conexiones/registro_equipos.php" class="form-colum-4" method="post">
                     <p><label for="">No.DAP-SIS</label>
                     <input type="text" name="DAP-SIS" id=""></p>
@@ -72,7 +72,7 @@
 
                 
 
-                <h2>Datos de la targeta madre</h2> 
+                <h2>Datos de la tarjeta madre</h2> 
                 
                 <!--Datos tarjeta madre-->
                     <p><label for="">Modelo: </label> 
@@ -160,10 +160,10 @@
                     
                     <p>
                     <label for="" class="ss">Lector dvd/cd</label>
-                    <input type="checkbox" name="dvd_sd" id=""></p>
+                    <input type="checkbox" name="dvd_sd" id="" value="s"></p>
                     <p>
-                    <label for="" class="ss">Lector de Targetas SD</label>
-                    <input type="checkbox" name="SD" id=""></p>
+                    <label for="" class="ss">Lector de Tarjetas SD</label>
+                    <input type="checkbox" name="SD" id="" value=""></p>
                     <p></p><p></p>
                     <p class="text"><label for="">Observaciones del equipo</label>
                         <textarea name="obs" id="" cols="30" rows="10"></textarea>
@@ -176,9 +176,12 @@
                     <select name="IP" id="">
                         <option value="">Seleccione una IP</option>
                     <?php
-                        $sql = 'SELECT id_IP, IP FROM ips';
+                        $sql = 'SELECT id_IP, IP, estado FROM ips';
                         foreach ($conection->query($sql) as $row) {
-                            echo  "<option value='$row[id_IP]'>$row[IP]</option>";
+                            if ($row['estado'] == 0) {
+                                echo  "<option value='$row[id_IP]'>$row[IP]</option>";
+                            }
+                            
                         }
             
                     ?>

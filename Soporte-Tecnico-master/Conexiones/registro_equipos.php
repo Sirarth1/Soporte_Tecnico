@@ -11,7 +11,9 @@ try {
     echo 'Error en la conexión' .$error->getMessage();
 }
 
-
+$idIP=$_REQUEST['IP'];
+$var = "";
+$tipo_eq = $_REQUEST['type_eq'];
 $insert = $conection->prepare("INSERT INTO 
         datosequipos(dap_sis, tip_eq, modl_eq, marca_eq, noSerie_eq, modl_mothb,socket_mothb, pVideo_mothb,
         pPCI_mothb, noRAM_mothb, noPNVMe_mothb, modl_procdr, vel_procdr, cap_dsk, type_dsk, capa_RAM, vel_RAM,
@@ -20,44 +22,80 @@ $insert = $conection->prepare("INSERT INTO
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
         $insert->bindParam(1, $_REQUEST['DAP-SIS']);
-        $insert->bindParam(2, $_REQUEST['type_eq']);
+        $insert->bindParam(2, $tipo_eq);
         $insert->bindParam(3, $_REQUEST['modl_eq']);
         $insert->bindParam(4, $_REQUEST['marca_eq']);
         $insert->bindParam(5, $_REQUEST['noSerie_eq']);
-        $insert->bindParam(6, $_REQUEST['modl_tarjeta']);
-        $insert->bindParam(7, $_REQUEST['typeSocket_tarjeta']);
-        $insert->bindParam(8, $_REQUEST['puertos_video']);
-        $insert->bindParam(9, $_REQUEST['puertos_PCI']);
-        $insert->bindParam(10, $_REQUEST['no_RAM']);
-        $insert->bindParam(11, $_REQUEST['noPuertos_NVMe']);
-        $insert->bindParam(12, $_REQUEST['modl_proce']);
-        $insert->bindParam(13, $_REQUEST['vel_proce']);
-        $insert->bindParam(14, $_REQUEST['capa_disk']);
-        $insert->bindParam(15, $_REQUEST['type_disk']);
-        $insert->bindParam(16, $_REQUEST['capa_RAM']);
-        $insert->bindParam(17, $_REQUEST['vel_RAM']);
-        $insert->bindParam(18, $_REQUEST['graph_integrados']);
-        $insert->bindParam(19, $_REQUEST['modl_fuente']);
-        $insert->bindParam(20, $_REQUEST['modl_monitor']);
-        $insert->bindParam(21, $_REQUEST['time_used_monitor']);
-        $insert->bindParam(22, $_REQUEST['keyborad']);
-        $insert->bindParam(23, $_REQUEST['time_used_keyborad']);
-        $insert->bindParam(24, $_REQUEST['modl_mouse']);
-        $insert->bindParam(25, $_REQUEST['time_used_mouse']);
-        $insert->bindParam(26, $_REQUEST['dvd_sd']);
-        $insert->bindParam(27, $_REQUEST['SD']);
+        if ($tipo_eq == 'IMPRESORA' || $tipo_eq == 'FOTOCOPIADORA') {
+            $insert->bindParam(6, $var);
+            $insert->bindParam(7, $var);
+            $insert->bindParam(8, $var);
+            $insert->bindParam(9, $var);
+            $insert->bindParam(10, $var);
+            $insert->bindParam(11, $var);
+            $insert->bindParam(12, $var);
+            $insert->bindParam(13, $var);
+            $insert->bindParam(14, $var);
+            $insert->bindParam(15, $var);
+            $insert->bindParam(16, $var);
+            $insert->bindParam(17, $var);
+            $insert->bindParam(18, $var);
+            $insert->bindParam(19, $var);
+            $insert->bindParam(20, $var);
+            $insert->bindParam(21, $var);
+            $insert->bindParam(22, $var);
+            $insert->bindParam(23, $var);
+            $insert->bindParam(24, $var);
+            $insert->bindParam(25, $var);
+            $insert->bindParam(26, $var);
+            $insert->bindParam(27, $var);
+            $insert->bindParam(32, $var);
+            $insert->bindParam(33, $var);
+            $insert->bindParam(34, $var);
+        }
+        else {
+            $insert->bindParam(6, $_REQUEST['modl_tarjeta']);
+            $insert->bindParam(7, $_REQUEST['typeSocket_tarjeta']);
+            $insert->bindParam(8, $_REQUEST['puertos_video']);
+            $insert->bindParam(9, $_REQUEST['puertos_PCI']);
+            $insert->bindParam(10, $_REQUEST['no_RAM']);
+            $insert->bindParam(11, $_REQUEST['noPuertos_NVMe']);
+            $insert->bindParam(12, $_REQUEST['modl_proce']);
+            $insert->bindParam(13, $_REQUEST['vel_proce']);
+            $insert->bindParam(14, $_REQUEST['capa_disk']);
+            $insert->bindParam(15, $_REQUEST['type_disk']);
+            $insert->bindParam(16, $_REQUEST['capa_RAM']);
+            $insert->bindParam(17, $_REQUEST['vel_RAM']);
+            $insert->bindParam(18, $_REQUEST['graph_integrados']);
+            $insert->bindParam(19, $_REQUEST['modl_fuente']);
+            $insert->bindParam(20, $_REQUEST['modl_monitor']);
+            $insert->bindParam(21, $_REQUEST['time_used_monitor']);
+            $insert->bindParam(22, $_REQUEST['keyborad']);
+            $insert->bindParam(23, $_REQUEST['time_used_keyborad']);
+            $insert->bindParam(24, $_REQUEST['modl_mouse']);
+            $insert->bindParam(25, $_REQUEST['time_used_mouse']);
+            $insert->bindParam(26, $_REQUEST['dvd_sd']);
+            $insert->bindParam(27, $_REQUEST['SD']);
+            $insert->bindParam(32, $_REQUEST['suport_proces']);
+            $insert->bindParam(33, $_REQUEST['suport_RAM']);
+            $insert->bindParam(34, $_REQUEST['suport_graph']);
+        }
+        
         $insert->bindParam(28, $_REQUEST['IP']);
         $insert->bindParam(29, $_REQUEST['obs']);
         $insert->bindParam(30, $_REQUEST['MAC_ethnet']);
         $insert->bindParam(31, $_REQUEST['MAC_wifi']);
-        $insert->bindParam(32, $_REQUEST['suport_proces']);
-        $insert->bindParam(33, $_REQUEST['suport_RAM']);
-        $insert->bindParam(34, $_REQUEST['suport_graph']);
         $insert->bindParam(35, $_REQUEST['user']);
+
 
         
         if($insert->execute() == true){
-            echo "<script languaje='javascript'>alert('Registro Exitoso'); location.href ='../alta_equipos.php';</script>";
+            $ocupado = $conection->prepare("UPDATE ips SET estado=1 WHERE id_IP=?");
+            $ocupado->bindParam(1, $idIP, PDO::PARAM_INT);
+            if ($ocupado->execute() == true) {
+                echo "<script languaje='javascript'>alert('Registro Exitoso'); location.href ='../alta_equipos.php';</script>";
+            }
+            
             }
     
         else{
