@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2021 a las 06:00:37
+-- Tiempo de generación: 28-10-2021 a las 19:42:24
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.25
 
@@ -55,7 +55,7 @@ CREATE TABLE `datosequipos` (
   `timeUse_mouse` varchar(50) DEFAULT NULL,
   `dvd_cd` varchar(5) DEFAULT NULL,
   `sd` varchar(5) DEFAULT NULL,
-  `dir_IP` varchar(20) NOT NULL,
+  `dir_IP` int(11) NOT NULL,
   `MAC_et` varchar(50) NOT NULL,
   `MAC_wifi` varchar(50) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE `datosequipos` (
 --
 
 INSERT INTO `datosequipos` (`dap_sis`, `tip_eq`, `modl_eq`, `marca_eq`, `noSerie_eq`, `modl_mothb`, `socket_mothb`, `pVideo_mothb`, `pPCI_mothb`, `noRAM_mothb`, `noPNVMe_mothb`, `modl_procdr`, `vel_procdr`, `cap_dsk`, `type_dsk`, `capa_RAM`, `vel_RAM`, `graficos`, `modl_sourcepw`, `monitor`, `keyboard`, `timeUse_monitor`, `timeUse_kybrd`, `mouse`, `timeUse_mouse`, `dvd_cd`, `sd`, `dir_IP`, `MAC_et`, `MAC_wifi`, `observaciones`, `sopor`, `max_RAM`, `soprt_graph`, `user`) VALUES
-('1', 'IMPRESORA', 'sadas', 'asfsd', 'sdfsdf', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '1', '', 'sdfsdg', 'dfgdfg', '', '', '', 'Alan'),
-('2', 'PC', 'asdafsds', 'sdgffdg', 'dfgdhgf', 'dfg', 'dfg', 'dfg', 'dfg', '1 ranura', 'dfg', 'dfg', 'dfg', 'dfg', 'HHD', '4GB', 'dfg', 'dfg', 'dfg', 'dfg', 'menor a 1 año', 'dfg', 'menor a 1 año', 'dfg', 'menor a 1 año', NULL, '', '10', 'dfg', 'dfg', 'dfg', '', '', '', 'Alan');
+('1', 'PC', 'HP-Inkjet', 'HP', '23215165151632156', NULL, NULL, 'asdas', 'dsfsdf', '2 ranuras', 'asdfasdf', 'sadasdfas', 'asdfasf', 'asdfsfsd', 'SSD', '4GB', 'asdfsfsd', '', 'asdfsf', 'sdfsdfgd', 'menor a 1 año', '', 'menor a 1 año', 'asdfsf', 'menor a 1 año', NULL, NULL, 1, '', 'asdsdfds', 'asdsfs', 'asdas', 'asdas', 'asdfs', 'Alan'),
+('2', 'LAPTOP', 'asdasd', 'asdasd', 'asdasdasfas', 'asdasdas', 'asdasdasd', 'asdasfdsfas', 'asdasdfsf', '2 ranuras', 'asdfaf', 'asfsd', 'asdfsfgd', 'asdfsf', 'SSD', '16GB', 'asdfsfsd', 'asdsdfs', 'asdsdfsd', 'asdfsf', 'de 3 a 6 años', 'asdsfsd', 'de 1 a 3 años', 'assdfsd', 'de 1 a 3 años', 's', '', 6, 'asdsfdfsd', 'asdsfsd', 'asdsfsdfsdasd', 'asdsafsd', 'asdasfsdf', 'asdasdf asfdasf asf', 'Alan');
 
 -- --------------------------------------------------------
 
@@ -95,11 +95,11 @@ INSERT INTO `ips` (`id_IP`, `IP`, `estado`) VALUES
 (3, '132.149.1.4', 0),
 (4, '132.149.1.5', 0),
 (5, '132.149.1.6', 0),
-(6, '132.149.1.7', 0),
+(6, '132.149.1.7', 1),
 (7, '132.149.1.8', 0),
 (8, '132.149.1.9', 0),
 (9, '132.149.1.10', 0),
-(10, '132.149.1.11', 1),
+(10, '132.149.1.11', 0),
 (11, '132.149.1.12', 0),
 (12, '132.149.1.13', 0),
 (13, '132.149.1.14', 0),
@@ -348,6 +348,20 @@ INSERT INTO `ips` (`id_IP`, `IP`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reportes`
+--
+
+CREATE TABLE `reportes` (
+  `id_reporte` int(11) NOT NULL,
+  `dap` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `nom_reporta` varchar(60) NOT NULL,
+  `fech_reporte` date NOT NULL,
+  `obser_reporte` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `responsables`
 --
 
@@ -402,6 +416,13 @@ ALTER TABLE `ips`
   ADD PRIMARY KEY (`id_IP`);
 
 --
+-- Indices de la tabla `reportes`
+--
+ALTER TABLE `reportes`
+  ADD PRIMARY KEY (`id_reporte`),
+  ADD KEY `dap` (`dap`);
+
+--
 -- Indices de la tabla `responsables`
 --
 ALTER TABLE `responsables`
@@ -425,6 +446,12 @@ ALTER TABLE `ips`
   MODIFY `id_IP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
 
 --
+-- AUTO_INCREMENT de la tabla `reportes`
+--
+ALTER TABLE `reportes`
+  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
@@ -438,7 +465,14 @@ ALTER TABLE `responsables`
 -- Filtros para la tabla `datosequipos`
 --
 ALTER TABLE `datosequipos`
-  ADD CONSTRAINT `datosequipos_ibfk_1` FOREIGN KEY (`user`) REFERENCES `usuarios` (`user`);
+  ADD CONSTRAINT `datosequipos_ibfk_1` FOREIGN KEY (`user`) REFERENCES `usuarios` (`user`),
+  ADD CONSTRAINT `datosequipos_ibfk_2` FOREIGN KEY (`dir_IP`) REFERENCES `ips` (`id_IP`);
+
+--
+-- Filtros para la tabla `reportes`
+--
+ALTER TABLE `reportes`
+  ADD CONSTRAINT `reportes_ibfk_1` FOREIGN KEY (`dap`) REFERENCES `datosequipos` (`dap_sis`);
 
 --
 -- Filtros para la tabla `usuarios`
