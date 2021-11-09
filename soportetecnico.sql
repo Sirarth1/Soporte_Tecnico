@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2021 a las 19:42:24
+-- Tiempo de generación: 09-11-2021 a las 20:15:33
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.25
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `soportetecnico`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `almacenamiento`
+--
+
+CREATE TABLE `almacenamiento` (
+  `id_almacenamiento` int(11) DEFAULT NULL,
+  `capacidad_alma` varchar(100) DEFAULT NULL,
+  `tipo_dsk` varchar(100) DEFAULT NULL,
+  `capacidad_RAM` varchar(100) DEFAULT NULL,
+  `vel_RAM` varchar(100) DEFAULT NULL,
+  `dap` varchar(20) CHARACTER SET latin1 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -41,10 +56,6 @@ CREATE TABLE `datosequipos` (
   `noPNVMe_mothb` varchar(100) DEFAULT NULL,
   `modl_procdr` varchar(100) DEFAULT NULL,
   `vel_procdr` varchar(100) DEFAULT NULL,
-  `cap_dsk` varchar(100) DEFAULT NULL,
-  `type_dsk` varchar(100) DEFAULT NULL,
-  `capa_RAM` varchar(100) DEFAULT NULL,
-  `vel_RAM` varchar(100) DEFAULT NULL,
   `graficos` varchar(100) DEFAULT NULL,
   `modl_sourcepw` varchar(100) DEFAULT NULL,
   `monitor` varchar(100) DEFAULT NULL,
@@ -64,14 +75,6 @@ CREATE TABLE `datosequipos` (
   `soprt_graph` varchar(200) DEFAULT NULL,
   `user` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `datosequipos`
---
-
-INSERT INTO `datosequipos` (`dap_sis`, `tip_eq`, `modl_eq`, `marca_eq`, `noSerie_eq`, `modl_mothb`, `socket_mothb`, `pVideo_mothb`, `pPCI_mothb`, `noRAM_mothb`, `noPNVMe_mothb`, `modl_procdr`, `vel_procdr`, `cap_dsk`, `type_dsk`, `capa_RAM`, `vel_RAM`, `graficos`, `modl_sourcepw`, `monitor`, `keyboard`, `timeUse_monitor`, `timeUse_kybrd`, `mouse`, `timeUse_mouse`, `dvd_cd`, `sd`, `dir_IP`, `MAC_et`, `MAC_wifi`, `observaciones`, `sopor`, `max_RAM`, `soprt_graph`, `user`) VALUES
-('1', 'PC', 'HP-Inkjet', 'HP', '23215165151632156', NULL, NULL, 'asdas', 'dsfsdf', '2 ranuras', 'asdfasdf', 'sadasdfas', 'asdfasf', 'asdfsfsd', 'SSD', '4GB', 'asdfsfsd', '', 'asdfsf', 'sdfsdfgd', 'menor a 1 año', '', 'menor a 1 año', 'asdfsf', 'menor a 1 año', NULL, NULL, 1, '', 'asdsdfds', 'asdsfs', 'asdas', 'asdas', 'asdfs', 'Alan'),
-('2', 'LAPTOP', 'asdasd', 'asdasd', 'asdasdasfas', 'asdasdas', 'asdasdasd', 'asdasfdsfas', 'asdasdfsf', '2 ranuras', 'asdfaf', 'asfsd', 'asdfsfgd', 'asdfsf', 'SSD', '16GB', 'asdfsfsd', 'asdsdfs', 'asdsdfsd', 'asdfsf', 'de 3 a 6 años', 'asdsfsd', 'de 1 a 3 años', 'assdfsd', 'de 1 a 3 años', 's', '', 6, 'asdsfdfsd', 'asdsfsd', 'asdsfsdfsdasd', 'asdsafsd', 'asdasfsdf', 'asdasdf asfdasf asf', 'Alan');
 
 -- --------------------------------------------------------
 
@@ -356,7 +359,8 @@ CREATE TABLE `reportes` (
   `dap` varchar(20) CHARACTER SET latin1 NOT NULL,
   `nom_reporta` varchar(60) NOT NULL,
   `fech_reporte` date NOT NULL,
-  `obser_reporte` blob NOT NULL
+  `obser_reporte` longtext NOT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -400,6 +404,12 @@ INSERT INTO `usuarios` (`user`, `respons`) VALUES
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `almacenamiento`
+--
+ALTER TABLE `almacenamiento`
+  ADD KEY `dap` (`dap`);
 
 --
 -- Indices de la tabla `datosequipos`
@@ -460,6 +470,12 @@ ALTER TABLE `responsables`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `almacenamiento`
+--
+ALTER TABLE `almacenamiento`
+  ADD CONSTRAINT `almacenamiento_ibfk_1` FOREIGN KEY (`dap`) REFERENCES `datosequipos` (`dap_sis`);
 
 --
 -- Filtros para la tabla `datosequipos`
